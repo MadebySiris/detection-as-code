@@ -1,0 +1,207 @@
+## 1.5.7
+* Feature: saved searches can configure the Splunk AI Toolkit `run_aiagent` alert action with `action_run_aiagent_param_agent_name` and `action_run_aiagent_param_prompt`
+* Fix: `splunk_configs_conf` reads the stanza in its configured ACL namespace, so the same stanza name in another app no longer overwrites `acl.app` or `acl.sharing`
+* Fix: saved search create and update send `allow_skew` and `action_email_command`, so configured values persist and plans converge
+* Fix: HTTP Event Collector `use_ack` reads Splunk Cloud values returned as a boolean or as `"true"` / `"false"`
+* Fix: SAML group names are URL-encoded once, so names with special characters work on read, update, and delete
+
+## 1.5.6
+* Feature: Federated Search resources `splunk_federated_providers` and `splunk_federated_indexes`
+
+## 1.5.5
+* Security: mark credential attributes (tokens, passwords, webhook URLs, Splunkbase auth/session) as Sensitive so Terraform plan and CLI output redact them
+
+## 1.5.4
+* Fix: Splunk Cloud saved search updates that fail on `schedule_priority` — set `ignore_schedule_priority = true` on the resource and omit `schedule_priority` from your config. No change required for Splunk Enterprise.
+
+## 1.5.3
+* Fix: release pipeline pins provider binary and artifact names to `terraform-provider-splunk` so installs work with registry address `splunk/splunk` (v1.5.2 release artifacts used incorrect names after the GitHub repo rename)
+
+## 1.5.2
+* Fix: saved search `action_email_include_*`, `action_email_send_csv`, and `action_snow_event_param_severity` handle boolean JSON from Splunk Cloud API responses
+* Support for namespaced REST import of saved searches and data ui views
+* Fix: URL-encode saved search and dashboard names in read, update, delete, and ACL API calls
+
+## 1.5.1
+* Fix: generic_acl app ACL updates on Splunk Cloud
+
+## 1.5.0
+* New resource: `splunk_saved_event_types` for managing saved event types knowledge objects.
+* Fix: saved search `action_email_include_*` fields (results_link, view_link, search, trigger, trigger_time) — removed omitempty from URL parameters so value 0 is sent to Splunk and can be set in config
+* Change: saved search `action_email_include_results_link` and `action_email_include_view_link` now default to 1 to match Splunk savedsearches.conf; removed Computed so defaults apply
+* Fix: HEC token list uses GET /services/data/inputs/http so tokens are found after create.
+* Fix: `splunk_generic_acl` ACL GET for Splunk Cloud vs Enterprise; add provider `acl_get_mode` / env `SPLUNK_ACL_GET_MODE` (`enterprise` default, or `cloud` when required).
+
+## 1.4.36
+* Fix: saved search action_email_include_results_link handles 0 value 
+* Fix: saved search action_email_include_view_link handles 0 value
+
+## 1.4.35
+* Fix: lookup_table_file - handle nil values in file_contents by converting to empty strings before JSON marshaling
+* Fix: lookup_table_file - properly URL-encode form parameters in Create/Read/Update operations
+
+## 1.4.34
+* Support for Slack alert params in saved_Searches
+
+## 1.4.33
+* Support for Victorops params in saved_Searches
+
+## 1.4.32
+* Support for Log Event action fields in saved_searches
+
+## 1.4.31
+* Fix: URL parsing of Splunk client path
+
+## 1.4.30
+* Suppress defaults when planning changes to Jira service desk params
+
+## 1.4.29
+* Support ':' and '/' characters in configs_conf stanza name
+* Fix: Add retry mechanism to configs_conf acl endpoint
+
+## 1.4.28 
+* Support for lookup definition
+
+## 1.4.27
+* Support for lookup table files
+
+## 1.4.26
+* Fix: Add retry mechanism to dashboard's acl endpoint
+
+## 1.4.25
+* Support for customfields in Jira service desk params
+
+## 1.4.24
+* Fix goreleaser configuration
+
+## 1.4.23
+* Upgrade: golang.org/x/crypto to remediate CVE-2020-928
+
+## 1.4.22
+* Fix: Encode name parameter of URI for Admin SAML Groups.
+
+## 1.4.21
+* Fix: pagerduty integration key, custom details.
+
+## 1.4.20
+* Support for defining pagerduty integration key, custom details.
+* Fix: Better error handling for non 20X error codes.
+
+## 1.4.19
+* Support for Pager Duty fields in saved_searches
+
+## 1.4.18
+* Support for SNOW alert actions
+* Prerequisite: Install ServiceNow Addon into Splunk instance.
+
+## 1.4.17
+* Support for XSOAR alert actions
+
+## 1.4.16
+* Fix incorrect revert in v1.4.15
+
+## 1.4.15
+* Support for jira service desk actions in saved_searches
+
+## 1.4.14
+* Fix: Omit auto_summarize field in saved_searches when empty
+
+## 1.4.13
+* Fix: configs_conf permits underscores in conf filename
+
+## 1.4.12
+* Fix: Don't read all searches just to find one search
+
+## 1.4.11
+* Fix: Don't read all views just to find one view
+
+## 1.4.10
+Role Capabilities are unordered (#95)
+
+## 1.4.9 (Sep 29, 2021)
+Handle missing SAML groups (#89)
+
+## 1.4.8 (Aug 23, 2021)
+* Added splunk_generic_acl resource
+
+## 1.4.7 (Aug 06, 2021)
+* Support for webhook alert action in saved_searches
+
+## 1.4.6 (June 22, 2021)
+* Fix:  Adds Cookie handling (fixes #49) (#75)
+* Primarily helps with sending subsequent requests to the same SH when SH cluster is enabled with ELB.
+* Example: With AWS, `lb_cookie_stickiness_policy` has to configured for requests to be sent to the same SH.
+
+## 1.4.5 (June 14, 2021)
+* Fix: Enabling to explicitly set values to roles attributes #76
+
+## 1.4.4 (April 12, 2021)
+* Fix: use_ack disable update failure
+
+## 1.4.3 (April 6, 2021)
+* Fix: State migration for alert_track #66
+
+## 1.4.2 (April 1, 2021)
+* Support to create indexes on Splunk Cloud (Beta)
+
+## 1.4.1 (March 9, 2021)
+* Fix: State not accurate w/r/t splunk_saved_searches->alert_track #65
+
+## 1.4.0 (March 9, 2021)
+* Data UI Views does not persist permissions on creation #59
+* Updated Examples
+
+## 1.3.9 (January 6, 2021)
+* Support to create dashboards and views resource #45
+
+## 1.3.8 (January 5, 2021)
+* Fix: Unable to create a Metric index (#48)
+* Fix: TestAccCreateSplunkIndex is randomly failing (#39)
+
+## 1.3.7 (December 8, 2020)
+* Fix: http client overrides default transport and no longer supports environment proxy settings. (#46)
+
+## 1.3.6 (December 8, 2020)
+* Fix: Pass HEC token as input with http event collector resource
+
+## 1.3.5 (December 1, 2020)
+Add email message field for reports & alerts #38
+
+## 1.3.4 (November 18, 2020)
+* Fix: Adding Slack actions to saved_searches resource #33
+* Revert go mod path update
+
+## 1.3.3 (November 13, 2020)
+* Fix: Fix URL encoding for resource names #32
+* Enhancements: Added linting `golangci-lint`
+* go mod path update to `github.com/terraform-providers/terraform-provider-splunk`
+
+## 1.3.2 (October 21, 2020)
+* Fix: Feature Request for saved search to support additional attributes #24
+* Fix: `saved_search` default is_visible to true #3
+
+## 1.3.1 (October 6, 2020)
+* Support for admin/SAML-groups API endpoint #23
+
+## 1.3.0 (October 6, 2020)
+* Fix: authorization/roles srchIndexesAllowed and srchIndexesDefault should be lists #20
+* Fix: Support for saved_search argument dispatch.index_earliest #15
+* github action workflow for integration tests
+* Additional examples in the examples folder
+
+## 1.2.1 (September 30, 2020)
+* Bug fix for authorization header
+
+## 1.2.0 (September 29, 2020)
+* Change provider configuration - support for splunk auth token
+
+## 1.1.0 (September 25, 2020)
+* Change HTTP inputs resource attribute types (`use_ack` and `use_deployment_server`) to `int`
+* Creating examples folder
+* Adding AWS firehose + Splunk integration example under `examples/aws`
+
+## 1.0.2 (September 21, 2020)
+* Adding Github actions workflow
+
+## 1.0.1 (September 21, 2020)
+* Adding CHANGELOG.MD
