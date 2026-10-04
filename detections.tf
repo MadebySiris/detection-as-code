@@ -111,7 +111,7 @@ locals {
         and network activity could be used for data exfiltration or command and control communication.
   EOT
       search      = <<-EOT
-        index=* host="Win-11V" EventCode IN (3, 7)
+        index=* EventCode IN (3, 7)
 | eval unsigned_dll=if(
     EventCode=7
     AND lower(Signed)="false"
