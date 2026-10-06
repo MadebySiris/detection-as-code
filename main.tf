@@ -29,3 +29,9 @@ variable "TINES_WEBHOOK" {
   type        = string
   description = "Tines Webhook URL"
 }
+
+variable "SPLUNK_UI_URL" {
+  type        = string
+  description = "Browser-accessible base URL for Splunk search-result links"
+  default     = "http://localhost:8000"
+}

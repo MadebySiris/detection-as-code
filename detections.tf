@@ -129,33 +129,45 @@ locals {
 | where network_connections > 0 AND mvcount(unsigned_dlls) > 0
 | eval priority="Suspicious — unsigned DLL load and network activity"
   EOT
+    }
+  }
 }
-    
 resource "splunk_saved_searches" "detection" {
   for_each = local.detections
 
   name        = each.value.name
   description = each.value.description
-  search      = trim(each.value.search, " \t\n\r")
+  search      = <<-EOT
+${trim(each.value.search, " \t\n\r")}
+| addinfo
+| eval rule_description=urldecode(${jsonencode(urlencode(trimspace(each.value.description)))})
+| eval trigger_range=strftime(info_min_time, "%Y-%m-%d %H:%M:%S %Z")." to ".strftime(info_max_time, "%Y-%m-%d %H:%M:%S %Z")
+| eval query_url=${jsonencode("${trimsuffix(var.SPLUNK_UI_URL, "/")}/app/search/@go?sid=")}.info_sid
+| eval query=urldecode(${jsonencode(urlencode(trim(each.value.search, " \t\n\r")))})
+| fields rule_description trigger_range query_url query
+EOT
 
 
   # 1. Scheduling Settings
   is_scheduled  = true
   cron_schedule = "*/5 * * * *" # Evaluates every 5 minutes
-  
+
   # 2. Time Window Settings
-  dispatch_earliest_time = "-5m"
+  dispatch_earliest_time = "-12h"
   dispatch_latest_time   = "now"
 
   # 3. Alert Trigger Condition Rules
-  alert_type       = "number of events"
-  alert_comparator = "greater than"
-  alert_threshold  = "0"
-  alert_track      = true # Crucial: Tells Splunk to fire this as an alert
+  alert_type            = "number of events"
+  alert_comparator      = "greater than"
+  alert_threshold       = "0"
+  alert_digest_mode     = true
+  alert_suppress        = true
+  alert_suppress_period = "10m"
+  alert_track           = true # Crucial: Tells Splunk to fire this as an alert
 
-  # 4. Action Settings (Example: Email Notification)
-  actions                    = "Webhook"
-  action_better_webhook_param_url = var.TINES_WEBHOOK
+  # 4. Action Settings
+  actions                  = "webhook"
+  action_webhook_param_url = var.TINES_WEBHOOK
 
   # 5. Access Control (Optional)
   acl {
@@ -164,5 +176,3 @@ resource "splunk_saved_searches" "detection" {
     app     = "search"
   }
 }
-}
-
