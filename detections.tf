@@ -1,7 +1,7 @@
 locals {
   detections = {
     detection1 = {
-      name        = "Account Creates User and Access Keys1"
+      name        = "Account Creates User and Access Keys"
       description = <<-EOT
         This could be a persistence mechanism for an attacker to maintain access to the environment.
         This detection looks for a user creating another user and then creating access keys for that user within a 10 minute window.
@@ -16,7 +16,7 @@ locals {
   EOT
     }
     detection2 = {
-      name        = "Detecting Anomalous Access Denied Errors Code1"
+      name        = "Detecting Anomalous Access Denied Errors Code"
       description = <<-EOT
         This detection looks for anomalous access denied errors in AWS CloudTrail logs.
         It uses statistical anomaly detection to identify unusual spikes in access denied events,
@@ -45,7 +45,7 @@ locals {
   EOT
     }
     detection3 = {
-      name        = "Possible Data Exfiltration from an S3 bucket1"
+      name        = "Possible Data Exfiltration from an S3 bucket"
       description = <<-EOT
         Triggers an alert when a user transfers a large amount of data out of an S3 bucket.
         Indicating potential data exfiltration or misuse of S3 resources.
@@ -64,7 +64,7 @@ locals {
   EOT
     }
     detection4 = {
-      name        = "Suspicious Number of Attempts API Calls1"
+      name        = "Suspicious Number of Attempts API Calls"
       description = <<-EOT
         This detection identifies users who are making a large number of API calls in a short period of time. This could indicate automation or malicious activity
         through probing, reconnaissance, or enumeration of our environment.
@@ -82,7 +82,7 @@ locals {
   EOT
     }
     detection5 = {
-      name        = "Unexpected process makes network connection1"
+      name        = "Unexpected process makes network connection "
       description = <<-EOT
         This detection identifies unexpected processes that are making network connections.
         It looks for processes that are not typically associated with network activity, such as system processes or known benign applications,
@@ -104,7 +104,7 @@ locals {
   EOT
     }
     detection6 = {
-      name        = "Unsigned DLL Load and Network Activity in the Same Process1"
+      name        = "Unsigned DLL Load and Network Activity in the Same Process"
       description = <<-EOT
         This detection identifies processes that have loaded unsigned DLLs and are also making network connections.
         This could indicate malicious activity, as unsigned DLLs may be used to inject malicious code into legitimate processes,
