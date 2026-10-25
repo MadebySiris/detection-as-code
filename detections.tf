@@ -162,7 +162,7 @@ EOT
   alert_threshold       = "0"
   alert_digest_mode     = true
   alert_suppress        = true
-  alert_suppress_period = "2h"
+  alert_suppress_period = "4h"
   alert_track           = true # Crucial: Tells Splunk to fire this as an alert
 
   # 4. Action Settings
