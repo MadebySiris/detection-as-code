@@ -137,15 +137,7 @@ resource "splunk_saved_searches" "detection" {
 
   name        = each.value.name
   description = each.value.description
-  search      = <<-EOT
-${trim(each.value.search, " \t\n\r")}
-| addinfo
-| eval rule_description=urldecode(${jsonencode(urlencode(trimspace(each.value.description)))})
-| eval trigger_range=strftime(info_min_time, "%Y-%m-%d %H:%M:%S %Z")." to ".strftime(info_max_time, "%Y-%m-%d %H:%M:%S %Z")
-| eval query_url=${jsonencode("${trimsuffix(var.SPLUNK_UI_URL, "/")}/app/search/@go?sid=")}.info_sid
-| eval query=urldecode(${jsonencode(urlencode(trim(each.value.search, " \t\n\r")))})
-| fields rule_description trigger_range query_url query
-EOT
+ 
 
 
   # 1. Scheduling Settings
