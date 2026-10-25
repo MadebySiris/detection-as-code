@@ -150,7 +150,7 @@ EOT
 
   # 1. Scheduling Settings
   is_scheduled  = true
-  cron_schedule = "*/5 * * * *" # Evaluates every 5 minutes
+  cron_schedule = "*/15 * * * *" # Evaluates every 15 minutes
 
   # 2. Time Window Settings
   dispatch_earliest_time = "-12h"
@@ -162,7 +162,7 @@ EOT
   alert_threshold       = "0"
   alert_digest_mode     = true
   alert_suppress        = true
-  alert_suppress_period = "10m"
+  alert_suppress_period = "2h"
   alert_track           = true # Crucial: Tells Splunk to fire this as an alert
 
   # 4. Action Settings
