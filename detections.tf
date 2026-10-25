@@ -82,7 +82,7 @@ locals {
   EOT
     }
     detection5 = {
-      name        = "Unexpected process makes network connection "
+      name        = "Unexpected process makes network connection"
       description = <<-EOT
         This detection identifies unexpected processes that are making network connections.
         It looks for processes that are not typically associated with network activity, such as system processes or known benign applications,
@@ -133,20 +133,16 @@ locals {
   }
 }
 resource "splunk_saved_searches" "detection" {
-  for_each = local.detections
-  name        = each.value.name
+  for_each    = local.detections
+  name        = trimspace(each.value.name)
   description = each.value.description
-  search      = trim(each.value.search, " \t\n\r")
   search      = <<-EOT
-${trim(each.value.search, " \t\n\r")}
+${trimspace(each.value.search)}
 | addinfo
 | eval rule_description=urldecode(${jsonencode(urlencode(trimspace(each.value.description)))})
 | eval trigger_range=strftime(info_min_time, "%Y-%m-%d %H:%M:%S %Z")." to ".strftime(info_max_time, "%Y-%m-%d %H:%M:%S %Z")
-| eval query=urldecode(${jsonencode(urlencode(trim(each.value.search, " \t\n\r")))})
+| eval query=urldecode(${jsonencode(urlencode(trimspace(each.value.search)))})
 EOT
-
- 
-
 
   # 1. Scheduling Settings
   is_scheduled  = true
