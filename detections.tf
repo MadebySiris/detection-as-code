@@ -89,18 +89,19 @@ locals {
         and flags them for further investigation.
   EOT
       search      = <<-EOT
-        index=* EventCode=3
-    | sort 0 _time
-    | streamstats current=f last(_time) as previous_time by host, process_guid, src_ip, dest_ip
-    | eval interval_seconds=round(_time-previous_time, 2)
-    | table _time src_ip dest_ip process_name interval_seconds, process_guid, host
-    | eval suspicious_level = case(
-      process_name == "MpDefenderCoreService.exe", "Low",
-      process_name = "OneDrive.Sync.Service.exe", "Low",
-      process_name = "chrome.exe", "Low",
-      process_name = "svchost.exe", "Low",
-      true(), "High"
-      )
+  index=* EventCode=3
+| sort 0 _time
+| streamstats current=f last(_time) as previous_time by host, process_guid, src_ip, dest_ip
+| eval interval_seconds=round(_time-previous_time, 2)
+| table _time src_ip dest_ip process_name interval_seconds, process_guid, host
+| where NOT process_name IN (
+    "MpDefenderCoreService.exe",
+    "OneDrive.Sync.Service.exe",
+    "chrome.exe",
+    "svchost.exe",
+    "mmc.exe",
+    "OneDriveSetup.exe"
+)
   EOT
     }
     detection6 = {
@@ -136,13 +137,7 @@ resource "splunk_saved_searches" "detection" {
   for_each    = local.detections
   name        = trimspace(each.value.name)
   description = each.value.description
-  search      = <<-EOT
-${trimspace(each.value.search)}
-| addinfo
-| eval rule_description=urldecode(${jsonencode(urlencode(trimspace(each.value.description)))})
-| eval trigger_range=strftime(info_min_time, "%Y-%m-%d %H:%M:%S %Z")." to ".strftime(info_max_time, "%Y-%m-%d %H:%M:%S %Z")
-| eval query=urldecode(${jsonencode(urlencode(trimspace(each.value.search)))})
-EOT
+  search      = trimspace(each.value.search)
 
   # 1. Scheduling Settings
   is_scheduled  = true
@@ -162,8 +157,19 @@ EOT
   alert_track           = true # Crucial: Tells Splunk to fire this as an alert
 
   # 4. Action Settings
-  actions                  = "webhook"
-  action_webhook_param_url = var.TINES_WEBHOOK
+  actions                                 = "better_webhook"
+  action_better_webhook_param_url         = var.TINES_WEBHOOK
+  action_better_webhook_param_body_format = <<-JSON
+{
+  "rule_description": ${jsonencode(trimspace(each.value.description))},
+  "trigger_range": "$job.earliestTime$ to $job.latestTime$",
+  "query": ${jsonencode(trimspace(each.value.search))},
+  "result": $$full_result$$,
+  "sid": $$sid$$,
+  "search_name": $$search_name$$,
+  "results_link": $$results_link$$
+}
+JSON
 
   # 5. Access Control (Optional)
   acl {
