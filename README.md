@@ -292,3 +292,21 @@ The key outcome is a repeatable engineering workflow: detections are version-con
 - [`detections.tf`](detections.tf) — shared Splunk saved-search and webhook configuration
 - [`main.tf`](main.tf) — Terraform provider and input variables
 
+## Inspiration & Acknowledgments
+
+These projects were inspired by educational resources and work from members of the cybersecurity community.
+
+- **David French:** Inspired my approach to detection engineering, adversary emulation, and security automation using Terraform and Tines.
+- **Anton Ovrutsky  – Constructing a Defense Lab:** Provided the foundational architecture and guidance for building my homelab, including endpoints, centralized logging, and a defensive monitoring environment.
+
+Building on these resources, I independently configured and troubleshot my environments, developed custom Splunk detections, integrated Terraform for Detection-as-Code, and implemented response automation workflows using Tines.
+
+The projects strengthened my practical understanding of security operations, detection engineering, and incident response automation.
+
+## References 
+https://www.huntress.com/authors/anton-ovrutsky
+https://medium.com/@threatpunter (detection as code series)
+https://api.limacharlie.io/static/swagger/#/Sensors
+https://docs.aws.amazon.com/IAM/latest/APIReference/API_Operations.html
+https://chatgpt.com/
+
