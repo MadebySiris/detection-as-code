@@ -29,7 +29,7 @@ The project combines Splunk Enterprise, Terraform, Sysmon, AWS CloudTrail, Tines
 | Case management | GitHub Issues populated with alert context and response links |
 | Endpoint response | LimaCharlie host isolation with status verification |
 | Identity response | Human-approved AWS session revocation, deny policy application, and access-key deactivation |
-| Validation | Pacu for AWS behavior and Sliver for controlled Windows C2 activity |
+| Validation | Pacu, CloudFox, Stratus Red Team for AWS behavior and Sliver for controlled Windows C2 activity |
 
 The diagram also shows Linux and Kubernetes components used for continued lab expansion. This case study focuses on the completed AWS CloudTrail and Windows Sysmon detection paths.
 
