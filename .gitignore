@@ -1,1 +1,14 @@
 *.tfvars
+*.tfvars.json
+
+# Local Terraform working data and state may contain credentials or webhook URLs.
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfplan
+tfplan
+crash.log
+crash.*.log
+
+# Keep provider dependency selections version controlled.
+!.terraform.lock.hcl
