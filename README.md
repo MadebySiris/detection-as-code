@@ -51,9 +51,7 @@ The Windows searches are explicitly scoped to `index=sysmon`, while the cloud se
 
 ## Telemetry onboarding
 
-AWS CloudTrail was connected to Splunk through the Splunk Add-on for AWS. The ingestion identity was configured for the S3 and SQS operations required to retrieve queued CloudTrail objects.
-
-In a production environment, the lab policy shown during initial setup would be restricted to specific queue and bucket ARNs. Broad resources were used only inside the isolated learning environment.
+AWS CloudTrail was connected to Splunk through the Splunk Add-on for AWS. The ingestion identity was configured for the Generic S3 operations required to retrieve CloudTrail objects.
 
 ## AWS adversary-emulation attack chain
 
@@ -295,3 +293,10 @@ The key outcome is a repeatable engineering workflow: detections are version-con
 - [`main.tf`](main.tf) — Terraform provider and input variables
 
 .
+
+## Lessons Learned 
+ For TMR:
+
+## Troubles and Struggles 
+For TMR:
+
