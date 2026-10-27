@@ -304,9 +304,9 @@ Building on these resources, I independently configured and troubleshot my envir
 The projects strengthened my practical understanding of security operations, detection engineering, and incident response automation.
 
 ## References 
-https://www.huntress.com/authors/anton-ovrutsky
-https://medium.com/@threatpunter (detection as code series)
-https://api.limacharlie.io/static/swagger/#/Sensors
-https://docs.aws.amazon.com/IAM/latest/APIReference/API_Operations.html
-https://chatgpt.com/
+- https://www.huntress.com/authors/anton-ovrutsky
+- https://medium.com/@threatpunter (detection as code series)
+- https://api.limacharlie.io/static/swagger/#/Sensors
+- https://docs.aws.amazon.com/IAM/latest/APIReference/API_Operations.html
+- https://chatgpt.com/
 
