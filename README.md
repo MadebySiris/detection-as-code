@@ -292,11 +292,3 @@ The key outcome is a repeatable engineering workflow: detections are version-con
 - [`detections.tf`](detections.tf) — shared Splunk saved-search and webhook configuration
 - [`main.tf`](main.tf) — Terraform provider and input variables
 
-.
-
-## Lessons Learned 
- For TMR:
-
-## Troubles and Struggles 
-For TMR:
-
