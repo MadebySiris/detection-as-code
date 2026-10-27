@@ -294,12 +294,4 @@ The key outcome is a repeatable engineering workflow: detections are version-con
 - [`detections.tf`](detections.tf) — shared Splunk saved-search and webhook configuration
 - [`main.tf`](main.tf) — Terraform provider and input variables
 
-## Resume bullets
-
-- Built a detection-as-code pipeline with Terraform and Splunk, deploying six behavioral detections across AWS CloudTrail and Windows Sysmon telemetry with version-controlled scheduling, alerting, and webhook configuration.
-- Emulated cloud and endpoint attack behavior with Pacu and Sliver, validating IAM persistence, API enumeration, S3 transfer, beaconing, and unsigned-DLL correlation detections from telemetry through alert delivery.
-- Orchestrated enriched alerts through Tines and GitHub Issues, integrating human-approved AWS identity containment and verified LimaCharlie endpoint isolation.
-
-## Safety and scope
-
-The project was built for defensive research in an isolated environment. No testing was performed against systems or accounts without authorization. Secret access keys, passwords, tokens, live webhook URLs, and other usable credentials are excluded from the public artifact. Selected non-secret identifiers remain visible where they provide meaningful detection and response evidence.
+.
