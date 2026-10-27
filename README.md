@@ -2,7 +2,7 @@
 
 An end-to-end security engineering lab for collecting Windows and AWS telemetry, deploying detections as code, validating them with controlled adversary activity, and orchestrating response actions.
 
-The project combines Splunk Enterprise, Terraform, Sysmon, AWS CloudTrail, Tines, GitHub Issues, LimaCharlie, Pacu, and Sliver. Its purpose was not simply to make searches return results, but to exercise the full detection lifecycle:
+The project combines Splunk Enterprise, Terraform, Sysmon, AWS CloudTrail, Tines, GitHub Issues, LimaCharlie, with some offensive tooling such as Pacu, Stratus Red Team, Cloudfox and Sliver. Its purpose was not simply to make searches return results, but to exercise the detection lifecycle :
 
 > telemetry → detection → alert enrichment → case creation → containment → validation
 
